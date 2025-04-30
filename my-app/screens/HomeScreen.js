@@ -1,49 +1,55 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import ProductCard from "../components/ProductCard";
 
-import clothesImage from "../assets/clothes.jpeg";
-import tackImage from "../assets/tack.jpg";
-
 const HomeScreen = ({ navigation }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.webflow.com/v2/collections/680cd71e3e86477a69c63648/items", {
+      headers: {
+        Authorization: "Bearer f91cd53cb2d72603a2437a426b81b6dfc1d888e9cd7a6efc695c00ac69f4629a",
+        "accept-version": "1.0.0",
+      },
+    })
+    
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(
+          data.items.map((item) => {
+            
+            return {
+              id: item.id,
+              title: item.fieldData.name,
+              subtitle: item.fieldData.description,
+              price: item.fieldData.price?.value / 100,
+              image: { uri: item.fieldData["main-image"]?.url }, 
+            };
+          })
+        );
+      })
+      
+      .catch((err) => console.error("Error:", err));
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Onze modellen</Text>
 
       <ScrollView style={styles.cardContainer}>
         <View style={styles.row}>
-          <ProductCard
-            title="Jeans jacket"
-            subtitle="Blue embroided jean jacket"
-            price="89"
-            image={clothesImage}
-            onPress={() =>
-              navigation.navigate("Details", {
-                  title: "Jeans jacket",
-                  subtitle: "Blue embroided jean jacket",
-                  price: "89",
-              })
-            }
-          />
-
-          <ProductCard
-            title="Western saddle"
-            subtitle="Beautiful brown leather saddle"
-            price="999"
-            image={tackImage}
-            onPress={() =>
-              navigation.navigate("Details", {
-                  title: "Western saddle",
-                  subtitle: "Beautiful brown leather saddle",
-                  price: "999",
-              })
-            }
-          />
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              title={product.title}
+              subtitle={product.subtitle}
+              price={product.price}
+              image={product.image} 
+              onPress={() => navigation.navigate("Details", product)}
+            />
+          ))}
         </View>
       </ScrollView>
-
-      <StatusBar style="auto" />
     </View>
   );
 };
@@ -69,6 +75,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 16,
+    flexWrap: "wrap",
+    gap: 16,
   },
 });

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const DetailsScreen = ({ route }) => {
-  const { title, subtitle, price } = route.params;
+  const { title, subtitle, price, image } = route.params;
   const [quantity, setQuantity] = useState(1); // we gebruiken een state voor het productaantal
 
   const increaseQuantity = () => setQuantity(quantity + 1); //verhoog het aantal
@@ -14,10 +14,10 @@ const DetailsScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.price}>€{price}</Text>
-
 
       <View style={styles.quantityContainer}>
         <TouchableOpacity style={styles.button} onPress={decreaseQuantity}>
@@ -31,13 +31,8 @@ const DetailsScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.totalPrice}>Totaal: €{price * quantity}</Text>
-
-
-
+      <Text style={styles.totalPrice}>Totaal: €{(price * quantity).toFixed(2)}</Text>
     </View>
-
-
   );
 };
 
@@ -50,6 +45,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 16,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    borderRadius: 12,
+    marginBottom: 16,
   },
   title: {
     fontSize: 20,
