@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#F0E9D7",
     paddingBottom: 120,
   },
   item: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   removeText: {
     fontSize: 22,
-    color: "#8B4513",
+    color: "#674930",
     marginLeft: 8,
   },
   total: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   orderButton: {
-    backgroundColor: "#CE9B36",
+    backgroundColor: "#674930",
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 12,
@@ -114,17 +114,17 @@ const styles = StyleSheet.create({
   },
   empty: {
     fontSize: 16,
-    color: "#777",
+    color: "#333",
     marginBottom: 8,
     textAlign: "center",
   },
   emptyHint: {
     fontSize: 14,
-    color: "#aaa",
+    color: "#333",
     fontStyle: "italic",
   },
   goToProductsButton: {
-    backgroundColor: "#8B4513",
+    backgroundColor: "#674930",
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 12,

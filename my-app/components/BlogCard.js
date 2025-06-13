@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 14,
-    color: '#666',
+    color: '#333',
+    fontStyle: "italic",
   },
 });

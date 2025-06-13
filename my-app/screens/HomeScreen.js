@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   horizontalScroll: { paddingLeft: 16 },
   categoryCard: {
-    backgroundColor: '#CE9B36',
+    backgroundColor: '#f0e9d7',
     borderRadius: 8,
     marginRight: 12,
     width: 220,
@@ -150,11 +150,13 @@ const styles = StyleSheet.create({
   categoryImage: {
     width: 220,
     height: 120,
-    borderRadius: 8,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   categoryText: {
-    color: '#fff',
-    color: '#fff',
+    color: '#333',
     fontWeight: '600',
     flexWrap: 'wrap',
     marginTop: 12,
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
   },
 
   blogCard: {
-    backgroundColor: '#CE9B36',
+    backgroundColor: '#f0e9d7',
     borderRadius: 8,
     marginRight: 12,
     width: 220,
@@ -174,11 +176,14 @@ const styles = StyleSheet.create({
   blogImage: {
     width: 220,
     height: 120,
-    borderRadius: 8,
+     borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   blogTextContainer: { width: '90%' },
   blogText: {
-    color: '#fff',
+    color: '#333',
     fontWeight: '600',
     flexWrap: 'wrap',
     marginTop: 12,

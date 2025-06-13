@@ -1,14 +1,35 @@
 // ProductsScreen.js
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from "react-native";
+
 import ProductCard from "../components/ProductCard";
 import BottomNav from "../components/BottomNav";
+
+import { View, ScrollView, TouchableOpacity, Text, StyleSheet, TextInput } from "react-native";
+import { ActionSheetIOS } from "react-native";
+
+
 
 export default function ProductsScreen({ navigation, route }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [activeCat, setActiveCat] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("none"); // “none” | “asc” | “desc”
+  const openSortMenu = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        // nú 4 opties, dus index 0=tap Cancel, 1=none, 2=asc, 3=desc
+        options: ["Cancel", "None", "Price ascending", "Price descending"],
+        cancelButtonIndex: 0,
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) setSortOrder("none");
+        else if (buttonIndex === 2) setSortOrder("asc");
+        else if (buttonIndex === 3) setSortOrder("desc");
+      }
+    );
+  };
 
   useEffect(() => {
     const headers = {
@@ -69,7 +90,7 @@ export default function ProductsScreen({ navigation, route }) {
         });
 
         setProducts(mappedProducts);
-        
+
 
         const initial = route.params?.initialCategory || "all";
         setActiveCat(initial);
@@ -83,15 +104,37 @@ export default function ProductsScreen({ navigation, route }) {
 
       .catch((err) => console.error("Error fetching products:", err));
   }, []);
-
   const filterBy = (key) => {
     setActiveCat(key);
-    if (key === "all") {
-      setFiltered(products);
-    } else {
-      setFiltered(products.filter((p) => p.categorySlug === key));
-    }
   };
+
+
+
+  useEffect(() => {
+    //categorie‐filter
+    let temp = activeCat === "all"
+      ? [...products]
+      : products.filter(p => p.categorySlug === activeCat);
+
+    // zoeken
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      temp = temp.filter(p => p.title.toLowerCase().includes(q));
+    }
+
+    // prijs‐sortering
+    if (sortOrder === "asc") {
+      temp.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === "desc") {
+      temp.sort((a, b) => b.price - a.price);
+    }
+    // bij "none" = originele volgorde
+
+    setFiltered(temp);
+  }, [products, activeCat, searchQuery, sortOrder]);
+
+
+
 
 
   return (
@@ -111,6 +154,33 @@ export default function ProductsScreen({ navigation, route }) {
         ))}
 
       </View>
+
+      {/* ZOEKBALK + SORTEREN */}
+      <View style={styles.searchSortRow}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search products…"
+          placeholderTextColor="#888"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          clearButtonMode="while-editing"
+          returnKeyType="search"
+          editable={true}
+          autoFocus={false}
+          selectionColor="#8B4513"
+        />
+        <TouchableOpacity style={styles.sortButton} onPress={openSortMenu}>
+          <Text style={styles.sortText}>
+            {sortOrder === "none"
+              ? "🪄"           
+              : sortOrder === "asc"
+                ? "€ ↑"
+                : "€ ↓"}
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+
 
       {/* PRODUCTEN GRID */}
       <ScrollView contentContainerStyle={styles.grid}>
@@ -142,7 +212,7 @@ const styles = StyleSheet.create({
     paddingTop: 42,
     paddingHorizontal: 16,
     paddingBottom: 80,
-    backgroundColor: "#fff",
+    backgroundColor: "#F0E9D7",
   },
   filterRow: {
     flexDirection: "row",
@@ -152,17 +222,19 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   filterBtn: {
-    paddingVertical: 6,
+    paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 20,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#fff",
+     borderWidth: 0.5, 
+    borderColor: "#ccc",
   },
   activeFilter: {
-    backgroundColor: "#8B4513",
+    backgroundColor: "#674930",
   },
   filterText: {
     color: "#333",
-    fontSize: 14,
+    fontSize: 16,
   },
   activeText: {
     color: "#fff",
@@ -179,4 +251,38 @@ const styles = StyleSheet.create({
     width: "50%",
     marginBottom: 12,
   },
+
+  searchSortRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 16,
+    marginBottom: 16,
+    marginTop: 16,
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    marginRight: 8,
+    backgroundColor: "#fff",
+  },
+  sortButton: {
+    width: 80,
+    height: 40,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+  },
+  sortText: {
+    fontSize: 14,
+    color: "#333",
+  },
+
+
 });
