@@ -58,7 +58,15 @@ export default function App() {
             <Stack.Screen
               name="ProductDetail"
               component={ProductDetail}
-              options={({ route }) => ({ title: route.params.title })}
+                options={{
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+              
+              }}
             />
 
             <Stack.Screen
@@ -78,7 +86,15 @@ export default function App() {
             <Stack.Screen
               name="BlogDetail"
               component={BlogDetail}
-              options={({ route }) => ({ title: route.params.title })}
+                options={{
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+               
+              }}
             />
 
             <Stack.Screen

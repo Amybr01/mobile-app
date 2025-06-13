@@ -18,7 +18,7 @@ const DetailsScreen = ({ route }) => {
 
   const { addToCart } = useCart();
   const handleAddToCart = () => {
-    console.log("🚀 In winkelmand:", { id, title, price, quantity });
+    console.log("In winkelmand:", { id, title, price, quantity });
     addToCart({
     id: route.params.id,
     title,
@@ -26,7 +26,7 @@ const DetailsScreen = ({ route }) => {
     quantity,
     image,
   });
-  console.log("🚀 In winkelmand:", {
+  console.log("In winkelmand:", {
     id: route.params.id,
     title,
     price,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#f0e9d7',
     padding: 16,
     paddingTop: 32,
   },
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   button: {
-    backgroundColor: '#8B4513',
+    backgroundColor: '#674930',
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -128,14 +128,14 @@ const styles = StyleSheet.create({
     
   },
   totalPrice: {
-    marginTop: 12,
+    marginTop: 16,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#CE9B36',
-    marginBottom: 24,
+    marginBottom: 22,
   },
   cartButton: {
-    backgroundColor: '#8B4513',
+    backgroundColor: '#674930',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 16,

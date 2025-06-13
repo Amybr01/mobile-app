@@ -268,6 +268,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginRight: 8,
     backgroundColor: "#fff",
+    fontStyle: "italic",
   },
   sortButton: {
     width: 80,

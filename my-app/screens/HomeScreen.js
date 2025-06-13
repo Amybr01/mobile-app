@@ -128,8 +128,8 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  logo: { width: '100%', height: 100, marginTop: 64 },
+  container: { flex: 1, backgroundColor: '#f0e9d7' },
+  logo: { width: '100%', height: 100, marginTop: 84 },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   horizontalScroll: { paddingLeft: 16 },
   categoryCard: {
-    backgroundColor: '#f0e9d7',
+    backgroundColor: '#fff',
     borderRadius: 8,
     marginRight: 12,
     width: 220,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
 
   blogCard: {
-    backgroundColor: '#f0e9d7',
+    backgroundColor: '#fff',
     borderRadius: 8,
     marginRight: 12,
     width: 220,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
 
 
   linkText: {
-    color: '#8B4513',
+    color: '#674930',
     fontWeight: 'bold',
     marginLeft: 18,
     marginTop: 8,

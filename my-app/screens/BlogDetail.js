@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:
-            "#fff"
+            "#f0e9d7"
     }, contentContainer: {
         paddingBottom: 80
     }, image: {
