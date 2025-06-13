@@ -1,10 +1,38 @@
 // components/CartContext.js
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+
+  // ✅ Laad opgeslagen cart bij opstart
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const storedCart = await AsyncStorage.getItem("cart");
+        if (storedCart) {
+          setCartItems(JSON.parse(storedCart));
+        }
+      } catch (error) {
+        console.error("❌ Fout bij laden van cart:", error);
+      }
+    };
+    loadCart();
+  }, []);
+
+  // ✅ Sla cart op bij elke wijziging
+  useEffect(() => {
+    const saveCart = async () => {
+      try {
+        await AsyncStorage.setItem("cart", JSON.stringify(cartItems));
+      } catch (error) {
+        console.error("❌ Fout bij opslaan van cart:", error);
+      }
+    };
+    saveCart();
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prev) => {

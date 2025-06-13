@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import BottomNav from '../components/BottomNav';
 import { Ionicons } from '@expo/vector-icons';
 import { useWishlist } from '../components/WishlistContext';
+import { useCart } from "../components/CartContext";
 
 const DetailsScreen = ({ route }) => {
   const { id, title, price, image } = route.params;
@@ -15,10 +16,24 @@ const DetailsScreen = ({ route }) => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
+  const { addToCart } = useCart();
   const handleAddToCart = () => {
     console.log("🚀 In winkelmand:", { id, title, price, quantity });
-    // Hier later je cart-logica
+    addToCart({
+    id: route.params.id,
+    title,
+    price,
+    quantity,
+    image,
+  });
+  console.log("🚀 In winkelmand:", {
+    id: route.params.id,
+    title,
+    price,
+    quantity,
+  });
   };
+
 
   return (
     <View style={styles.container}>

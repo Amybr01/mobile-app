@@ -16,12 +16,14 @@ import BlogDetail from './screens/BlogDetail';
 import WishlistScreen from './screens/Wishlist';
 import CartScreen from './screens/Cart';
 import { WishlistProvider } from './components/WishlistContext';
+import { CartProvider } from "./components/CartContext";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <WishlistProvider> 
+      <CartProvider>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
@@ -70,6 +72,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </CartProvider>
     </WishlistProvider>
   );
 }
