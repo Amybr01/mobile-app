@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import BottomNav from '../components/BottomNav';
 
 const DetailsScreen = ({ route }) => {
   const { title, subtitle, price, image } = route.params;
@@ -32,6 +33,7 @@ const DetailsScreen = ({ route }) => {
       </View>
 
       <Text style={styles.totalPrice}>Totaal: €{(price * quantity).toFixed(2)}</Text>
+      <BottomNav />
     </View>
   );
 };

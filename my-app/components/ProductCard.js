@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginBottom: 16,
         marginHorizontal: 8,
-        width: "45%", 
+        width: "90%", 
         gap: 8,
     },
     image: {
         width: "100%",
-        height: 150,
+        height: 80,
         borderRadius: 12,
     },
     title: {
