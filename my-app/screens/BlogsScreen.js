@@ -14,8 +14,7 @@ export default function BlogScreen({ navigation }) {
 
     useEffect(() => {
         fetch(
-            // Vervang {{BLOG_COLLECTION_ID}} door je echte Webflow collectie ID voor blogs
-            "https://api.webflow.com/v2/collections/680a716d4e23d1771974cfd8/items",
+            "https://api.webflow.com/v2/collections/680a716d4e23d1771974cfd8/items",//blogs
             {
                 headers: {
                     Authorization:
