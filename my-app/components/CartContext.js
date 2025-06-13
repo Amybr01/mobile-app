@@ -6,8 +6,10 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const clearCart = () => setCartItems([]);
 
-  // ✅ Laad opgeslagen cart bij opstart
+
+ 
   useEffect(() => {
     const loadCart = async () => {
       try {
@@ -16,19 +18,18 @@ export const CartProvider = ({ children }) => {
           setCartItems(JSON.parse(storedCart));
         }
       } catch (error) {
-        console.error("❌ Fout bij laden van cart:", error);
+        console.error(" Fout bij laden van cart:", error);
       }
     };
     loadCart();
   }, []);
 
-  // ✅ Sla cart op bij elke wijziging
+// sla op bij elke wijziging
   useEffect(() => {
     const saveCart = async () => {
       try {
         await AsyncStorage.setItem("cart", JSON.stringify(cartItems));
       } catch (error) {
-        console.error("❌ Fout bij opslaan van cart:", error);
       }
     };
     saveCart();
@@ -55,7 +56,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

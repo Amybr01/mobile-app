@@ -22,57 +22,73 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <WishlistProvider> 
+    <WishlistProvider>
       <CartProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerTintColor: '#000',
-            headerBackTitleVisible: false,
-          }}
-        >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Home' }}
-          />
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerTintColor: '#000',
+              headerBackTitle: 'Back',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                fontWeight: 'normal',
+              },
+            }}
+          >
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: 'Home', headerLeft: () => null, }}
+            />
 
-          <Stack.Screen
-            name="Products"
-            component={ProductsScreen}
-            options={{ title: 'Producten' }}
-          />
-          <Stack.Screen
-            name="ProductDetail"
-            component={ProductDetail}
-            options={({ route }) => ({ title: route.params.title })}
-          />
+            <Stack.Screen
+              name="Products"
+              component={ProductsScreen}
+              options={{ title: 'Products', headerLeft: () => null, }}
+            />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={({ route }) => ({ title: route.params.title })}
+            />
 
-          <Stack.Screen
-            name="Blogs"
-            component={BlogsScreen}
-            options={{ title: 'Blogs' }}
-          />
-          <Stack.Screen
-            name="BlogDetail"
-            component={BlogDetail}
-            options={({ route }) => ({ title: route.params.title })}
-          />
+            <Stack.Screen
+              name="Blogs"
+              component={BlogsScreen}
+              options={{
+                title: 'Blogs',
+                headerLeft: () => null, 
+              }}
+            />
 
-          <Stack.Screen
-            name="Wishlist"
-            component={WishlistScreen}
-            options={{ title: 'Wishlist' }}
-          />
-          <Stack.Screen
-            name="Cart"
-            component={CartScreen}
-            options={{ title: 'Winkelmand' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="BlogDetail"
+              component={BlogDetail}
+              options={({ route }) => ({ title: route.params.title })}
+            />
+
+            <Stack.Screen
+              name="Wishlist"
+              component={WishlistScreen}
+              options={{
+                title: 'Wishlist',
+                headerLeft: () => null, //verbergt terugknop
+              }}
+            />
+
+            <Stack.Screen
+              name="Cart"
+              component={CartScreen}
+              options={{
+                title: 'Winkelmand',
+                headerLeft: () => null, // verberg 'Back'-knop
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </CartProvider>
-    </WishlistProvider>
+    </WishlistProvider >
   );
 }
