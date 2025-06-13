@@ -8,6 +8,13 @@ export default function HomeScreen({ navigation }) {
   const [loadingBlogs, setLoadingBlogs] = useState(true);
   const [loadingCategories, setLoadingCategories] = useState(true);
 
+  const productCategories = [
+    { key: 'care', label: 'Horse care' },
+    { key: 'outfits', label: 'Rider outfits' },
+    { key: 'tack', label: 'Tack' },
+  ];
+
+
   useEffect(() => {
     const headers = {
       Authorization: "Bearer f91cd53cb2d72603a2437a426b81b6dfc1d888e9cd7a6efc695c00ac69f4629a",
@@ -45,21 +52,36 @@ export default function HomeScreen({ navigation }) {
           <ActivityIndicator size="large" color="#8B4513" style={{ marginTop: 16 }} />
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-            {categories.map((cat) => (
-              <TouchableOpacity
-                key={cat._id}
-                style={styles.categoryCard}
-                onPress={() => navigation.navigate('Products')}
-              >
-                {cat.fieldData["main-image"]?.url && (
-                  <Image
-                    source={{ uri: cat.fieldData["main-image"].url }}
-                    style={styles.categoryImage}
-                  />
-                )}
-                <Text style={styles.categoryText}>{cat.fieldData.name}</Text>
-              </TouchableOpacity>
-            ))}
+            {categories.map((cat) => {
+              // bepaal key op basis van naam (je kunt dit uitbreiden of dynamisch maken als je wilt)
+              let key = "all";
+              const name = cat.fieldData.name?.toLowerCase() ?? "";
+
+              if (name.includes("horse care") || name.includes("care")) {
+                key = "care";
+              } else if (name.includes("rider") || name.includes("outfits")) {
+                key = "outfits";
+              } else if (name.includes("tack")) {
+                key = "tack";
+              }
+
+              return (
+                <TouchableOpacity
+                  key={cat._id}
+                  style={styles.categoryCard}
+                  onPress={() => navigation.navigate('Products', { initialCategory: key })}
+                >
+                  {cat.fieldData["main-image"]?.url && (
+                    <Image
+                      source={{ uri: cat.fieldData["main-image"].url }}
+                      style={styles.categoryImage}
+                    />
+                  )}
+                  <Text style={styles.categoryText}>{cat.fieldData.name}</Text>
+                </TouchableOpacity>
+              );
+            })}
+
           </ScrollView>
         )}
 

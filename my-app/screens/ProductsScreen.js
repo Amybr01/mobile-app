@@ -4,7 +4,7 @@ import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from "react-nati
 import ProductCard from "../components/ProductCard";
 import BottomNav from "../components/BottomNav";
 
-export default function ProductsScreen({ navigation }) {
+export default function ProductsScreen({ navigation, route }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -27,6 +27,7 @@ export default function ProductsScreen({ navigation }) {
           productIds: cat.fieldData.products?.map((p) => p.id) || [],
         }));
 
+
         setCategories([
           { key: "all", label: "All" },
           { key: "care", label: "Horse care" },
@@ -44,7 +45,7 @@ export default function ProductsScreen({ navigation }) {
       .then((data) => {
         const mappedProducts = data.items.map((item, i) => {
           const name = item.fieldData.name?.toLowerCase() ?? "";
-          
+
 
           let categorySlug = "unknown";
           if (name.includes("bridle") || name.includes("bit") || name.includes("boots")) {
@@ -52,9 +53,11 @@ export default function ProductsScreen({ navigation }) {
           } else if (name.includes("hat") || name.includes("bronco") || name.includes("western boots")) {
             categorySlug = "outfits";
           } else if (name.includes("cavalor")) {
-            categorySlug = "care"; 
+            categorySlug = "care";
             // zo moeten doen omdat door ecommerce ik de categorieen niet uit webflow kon halen door refernce
           }
+
+
 
           return {
             id: item._id ?? `fallback-${i}`,
@@ -66,7 +69,16 @@ export default function ProductsScreen({ navigation }) {
         });
 
         setProducts(mappedProducts);
-        setFiltered(mappedProducts);
+        
+
+        const initial = route.params?.initialCategory || "all";
+        setActiveCat(initial);
+
+        if (initial === "all") {
+          setFiltered(mappedProducts);
+        } else {
+          setFiltered(mappedProducts.filter((p) => p.categorySlug === initial));
+        }
       })
 
       .catch((err) => console.error("Error fetching products:", err));
@@ -108,7 +120,7 @@ export default function ProductsScreen({ navigation }) {
             key={product.id ?? `product-${index}`}
           >
             <ProductCard
-            id={product.id}
+              id={product.id}
               title={product.title}
               price={product.price}
               image={product.image}
@@ -137,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 16,
     marginLeft: 16,
-     marginRight: 16,
+    marginRight: 16,
   },
   filterBtn: {
     paddingVertical: 6,
