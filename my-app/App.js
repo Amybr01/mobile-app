@@ -1,7 +1,3 @@
-/*
-  App.js
-  Stack Navigator met WishlistProvider wrapper
-*/
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,6 +13,8 @@ import WishlistScreen from './screens/Wishlist';
 import CartScreen from './screens/Cart';
 import { WishlistProvider } from './components/WishlistContext';
 import { CartProvider } from "./components/CartContext";
+import { Image } from 'react-native';
+
 
 const Stack = createStackNavigator();
 
@@ -40,13 +38,22 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{ title: 'Home', headerLeft: () => null, }}
+              options={{ headerShown: false }}
             />
+
 
             <Stack.Screen
               name="Products"
               component={ProductsScreen}
-              options={{ title: 'Products', headerLeft: () => null, }}
+              options={{
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+                headerLeft: () => null,
+              }}
             />
             <Stack.Screen
               name="ProductDetail"
@@ -58,8 +65,13 @@ export default function App() {
               name="Blogs"
               component={BlogsScreen}
               options={{
-                title: 'Blogs',
-                headerLeft: () => null, 
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+                headerLeft: () => null,
               }}
             />
 
@@ -73,8 +85,13 @@ export default function App() {
               name="Wishlist"
               component={WishlistScreen}
               options={{
-                title: 'Wishlist',
-                headerLeft: () => null, //verbergt terugknop
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+                headerLeft: () => null,
               }}
             />
 
@@ -82,8 +99,13 @@ export default function App() {
               name="Cart"
               component={CartScreen}
               options={{
-                title: 'Winkelmand',
-                headerLeft: () => null, // verberg 'Back'-knop
+                headerTitle: () => (
+                  <Image
+                    source={require('./assets/smalllogo.png')}
+                    style={{ width: 100, height: 30, resizeMode: 'contain' }}
+                  />
+                ),
+                headerLeft: () => null,
               }}
             />
           </Stack.Navigator>

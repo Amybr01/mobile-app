@@ -129,7 +129,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
-  logo: { width: '100%', height: 100, marginTop: 16 },
+  logo: { width: '100%', height: 100, marginTop: 64 },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',

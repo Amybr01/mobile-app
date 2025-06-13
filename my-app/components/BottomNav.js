@@ -29,7 +29,7 @@ export default function BottomNav() {
             <Ionicons
               name={tab.icon}
               size={24}
-              color={isActive ? '#8B4513' : '#666'}
+              color={isActive ? '#674930' : '#333'}
             />
             <Text style={[styles.label, isActive && styles.activeLabel]}>
               {tab.label}
@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#666',
+    color: '#333',
     marginTop: 2,
   },
   activeLabel: {
-    color: '#8B4513',
+    color: '#674930',
     fontWeight: 'bold',
   },
 });
