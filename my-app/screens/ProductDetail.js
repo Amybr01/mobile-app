@@ -1,23 +1,34 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import BottomNav from '../components/BottomNav';
+import { Ionicons } from '@expo/vector-icons';
+import { useWishlist } from '../components/WishlistContext';
 
 const DetailsScreen = ({ route }) => {
-  const { title, subtitle, price, image } = route.params;
-  const [quantity, setQuantity] = useState(1); // we gebruiken een state voor het productaantal
+  const { id, title, price, image } = route.params;
+  const [quantity, setQuantity] = useState(1);
+  const { toggleWishlistItem, isInWishlist } = useWishlist();
+  const liked = isInWishlist(id);
 
-  const increaseQuantity = () => setQuantity(quantity + 1); //verhoog het aantal
+  const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1); //verlaag het aantal maar natuurlijk alleen als het boven 1 is
-    }
+    if (quantity > 1) setQuantity(quantity - 1);
+  };
+
+  const handleAddToCart = () => {
+    console.log("🚀 In winkelmand:", { id, title, price, quantity });
+    // Hier later je cart-logica
   };
 
   return (
     <View style={styles.container}>
+      {/* Favoriet icoon */}
+      <TouchableOpacity style={styles.heartIcon} onPress={() => toggleWishlistItem({ id, title, price, image })}>
+        <Ionicons name={liked ? "heart" : "heart-outline"} size={36} color="#CE9B36" />
+      </TouchableOpacity>
+
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.price}>€{price}</Text>
 
       <View style={styles.quantityContainer}>
@@ -33,6 +44,11 @@ const DetailsScreen = ({ route }) => {
       </View>
 
       <Text style={styles.totalPrice}>Totaal: €{(price * quantity).toFixed(2)}</Text>
+
+      <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
+        <Text style={styles.cartButtonText}>Add to cart</Text>
+      </TouchableOpacity>
+
       <BottomNav />
     </View>
   );
@@ -43,37 +59,40 @@ export default DetailsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 16,
+    paddingTop: 32,
+  },
+  heartIcon: {
+    position: 'absolute',
+    top: 32,
+    right: 32,
+    zIndex: 10,
   },
   image: {
     width: 250,
     height: 250,
-    borderRadius: 12,
-    marginBottom: 16,
+    resizeMode: 'contain',
+    marginBottom: 32,
+    marginTop: 12,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 6,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 6,
+    marginBottom: 22,
+    textAlign: 'center',
   },
   price: {
     fontSize: 18,
-    color: '#CC0000',
+    marginBottom: 22,
     fontWeight: 'bold',
   },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
-    marginTop: 16,
+    marginBottom: 6,
+    marginTop: 36,
     gap: 16,
   },
   button: {
@@ -91,10 +110,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
+    
   },
   totalPrice: {
     marginTop: 12,
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#CE9B36',
+    marginBottom: 24,
+  },
+  cartButton: {
+    backgroundColor: '#8B4513',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 16,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  cartButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

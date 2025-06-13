@@ -44,6 +44,7 @@ export default function ProductsScreen({ navigation }) {
       .then((data) => {
         const mappedProducts = data.items.map((item, i) => {
           const name = item.fieldData.name?.toLowerCase() ?? "";
+          
 
           let categorySlug = "unknown";
           if (name.includes("bridle") || name.includes("bit") || name.includes("boots")) {
@@ -58,16 +59,11 @@ export default function ProductsScreen({ navigation }) {
           return {
             id: item._id ?? `fallback-${i}`,
             title: item.fieldData.name,
-            subtitle: item.fieldData.description,
             price: item.fieldData.price?.value / 100,
             image: { uri: item.fieldData["main-image"]?.url },
             categorySlug,
           };
         });
-
-
-
-
 
         setProducts(mappedProducts);
         setFiltered(mappedProducts);
@@ -114,7 +110,6 @@ export default function ProductsScreen({ navigation }) {
             <ProductCard
             id={product.id}
               title={product.title}
-              subtitle={product.subtitle}
               price={product.price}
               image={product.image}
               onPress={() => navigation.navigate("ProductDetail", product)}
