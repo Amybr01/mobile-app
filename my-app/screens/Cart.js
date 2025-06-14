@@ -4,7 +4,7 @@ import { useCart } from "../components/CartContext";
 import BottomNav from "../components/BottomNav";
 
 export default function CartScreen({ navigation }) {
-  const { cartItems, removeFromCart, clearCart } = useCart();
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -37,10 +37,31 @@ export default function CartScreen({ navigation }) {
 
                 <View style={{ flex: 1 }}>
                   <Text style={styles.title}>{item.title}</Text>
-                  <Text style={styles.itemText}>Quantity: {item.quantity}</Text>
+
+                  <View style={styles.quantityRow}>
+                    <Text style={styles.itemText}>Quantity:</Text>
+
+                    <TouchableOpacity
+                      style={styles.quantityButton}
+                      onPress={() => item.quantity > 1 && updateQuantity(item.id, item.quantity - 1)}
+                    >
+                      <Text style={styles.quantityButtonText}>−</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.itemText}>{item.quantity}</Text>
+
+                    <TouchableOpacity
+                      style={styles.quantityButton}
+                      onPress={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      <Text style={styles.quantityButtonText}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+
                   <Text style={styles.itemText}>Price: €{item.price}</Text>
                   <Text style={styles.itemTotal}>Total: €{(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
+
                 <TouchableOpacity onPress={() => removeFromCart(item.id)}>
                   <Text style={styles.removeText}>✕</Text>
                 </TouchableOpacity>
@@ -74,13 +95,6 @@ const styles = StyleSheet.create({
     gap: 16,
     alignItems: "center",
   },
-
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: 'contain',
-
-  },
   imageWrapper: {
     backgroundColor: '#fff',
     padding: 6,
@@ -95,12 +109,15 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: 120,
     height: 120,
-
   },
-
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: 'contain',
+  },
   title: {
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: 8,
     fontFamily: "Rye",
   },
   itemText: {
@@ -112,7 +129,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#333',
-    marginTop: 16,
+    marginTop: 8,
+  },
+  quantityRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 4,
+  },
+  quantityButton: {
+    backgroundColor: "#674930",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 1000,
+  },
+  quantityButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: 'bold',
+
   },
   removeText: {
     fontSize: 22,
