@@ -92,7 +92,7 @@ const DetailsScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.totalPrice}>Totaal: €{(price * quantity).toFixed(2)}</Text>
+      <Text style={styles.totalPrice}>Total: €{(price * quantity).toFixed(2)}</Text>
 
       <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
         <Text style={styles.cartButtonText}>Add to cart</Text>
