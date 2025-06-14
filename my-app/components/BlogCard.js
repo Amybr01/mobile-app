@@ -21,10 +21,10 @@ export default function BlogCard({ title, summary, image, onPress }) {
 const styles = StyleSheet.create({
 card: {
   backgroundColor: '#fff',
-  borderRadius: 12,
+  borderRadius: 16,
   marginBottom: 24,
-  shadowColor: '#000',
-  shadowOpacity: 0.1,
+  shadowColor: '#333',
+  shadowOpacity: 0.2,
   shadowRadius: 6,
   shadowOffset: { width: 0, height: 2 },
   elevation: 3,
@@ -32,8 +32,8 @@ card: {
   image: {
     width: '100%',
     height: 150,
-     borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+     borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   },
