@@ -7,7 +7,7 @@ export default function BlogCard({ title, summary, image, onPress }) {
     <TouchableOpacity style={styles.card} onPress={onPress}>
       {image && <Image source={image} style={styles.image} />}
       <View style={styles.textContainer}>
-        <Text style={styles.title} numberOfLines={2}>
+        <Text style={styles.title} numberOfLines={3}>
           {title}
         </Text>
         <Text style={styles.summary} numberOfLines={3}>
@@ -19,20 +19,23 @@ export default function BlogCard({ title, summary, image, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    marginBottom: 16,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-     marginBottom: 24,
-  },
+card: {
+  backgroundColor: '#fff',
+  borderRadius: 12,
+  marginBottom: 24,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowRadius: 6,
+  shadowOffset: { width: 0, height: 2 },
+  elevation: 3,
+},
   image: {
     width: '100%',
     height: 150,
+     borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   textContainer: {
     padding: 12,
@@ -41,6 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 6,
+    fontFamily: "rye",
+    maxWidth: "90%"
   },
   summary: {
     fontSize: 14,
