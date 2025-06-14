@@ -7,6 +7,7 @@ export default function HomeScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
   const [loadingCategories, setLoadingCategories] = useState(true);
+  const [isPressed, setIsPressed] = useState(false);
 
   const productCategories = [
     { key: 'care', label: 'Horse care' },
@@ -85,8 +86,12 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
         )}
 
-        <TouchableOpacity onPress={() => navigation.navigate('Products')}>
-          <Text style={styles.linkText}>Browse all essentials</Text>
+       <TouchableOpacity
+              onPress={() => navigation.navigate('Products')}
+              onPressIn={() => setIsPressed(true)}
+              onPressOut={() => setIsPressed(false)}
+            >
+          <Text style={[styles.linkText, isPressed && styles.linkTextHover]}>Browse all essentials</Text>
         </TouchableOpacity>
 
         {/* Our Blog */}
@@ -115,8 +120,15 @@ export default function HomeScreen({ navigation }) {
               ))}
             </ScrollView>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Blogs')}>
-              <Text style={styles.linkText}>Discover more tips & tricks</Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Blogs')}
+              onPressIn={() => setIsPressed(true)}
+              onPressOut={() => setIsPressed(false)}
+            >
+              <Text style={[styles.linkText, isPressed && styles.linkTextHover]}>
+                Discover more tips & tricks
+              </Text>
             </TouchableOpacity>
           </>
         )}
@@ -214,6 +226,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontStyle: "italic",
   },
+
+  linkTextHover: {
+  textDecorationLine: 'underline',
+},
 
 
 });
