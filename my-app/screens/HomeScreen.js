@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 12,
     textAlign: 'center',
+    fontSize: 16,
   },
 
   blogCard: {
@@ -201,16 +202,17 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 12,
     textAlign: 'center',
+    fontSize: 16,
   },
 
 
   linkText: {
     color: '#674930',
     fontWeight: 'bold',
-    marginLeft: 18,
+    marginLeft: 22,
     marginTop: 8,
     marginBottom: 16,
-    fontFamily: 'Playfair',
+    fontStyle: "italic",
   },
 
 

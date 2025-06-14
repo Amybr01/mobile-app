@@ -1,5 +1,6 @@
 // screens/BlogDetail.js
 import React, { useEffect, useState } from "react";
+import RenderHTML from 'react-native-render-html';
 import {
     StyleSheet,
     View,
@@ -8,10 +9,14 @@ import {
     ScrollView,
 } from "react-native";
 import BottomNav from "../components/BottomNav";
+import { useWindowDimensions } from 'react-native';
+
+
 
 export default function BlogDetail({ route }) {
     const { slug } = route.params;
     const [post, setPost] = useState(null);
+    const { width } = useWindowDimensions();
 
     useEffect(() => {
         fetch(
@@ -29,14 +34,19 @@ export default function BlogDetail({ route }) {
                 return res.json();
             })
             .then(data => {
-                const item = data.items[0];
+                const item = data.items.find(it => it.fieldData.slug === slug);
+                if (!item) {
+                    throw new Error("Post not found");
+                }
                 const fd = item.fieldData;
                 setPost({
                     image: fd["main-image"] ? { uri: fd["main-image"].url } : null,
                     createdOn: item.createdOn,
                     title: fd.name || "(no title)",
                     summary: fd["blog-summary"],
-                    content: fd["blog-content"].replace(/<[^>]+>/g, ""),
+                    slug: fd.slug,
+                    content: fd["blog-content"] || "",
+
                 });
             })
             .catch(console.error);
@@ -57,16 +67,30 @@ export default function BlogDetail({ route }) {
             year: "numeric",
         });
 
-    return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.contentContainer}>
-                {post.image && <Image source={post.image} style={styles.image} />}
-                <Text style={styles.date}>{formatDate(post.createdOn)}</Text>
-                <Text style={styles.title}>{post.title}</Text>
 
-                <Text style={styles.summary}>{post.summary}</Text>
-                <Text style={styles.body}>{post.content}</Text>
-            </ScrollView>
+    return (
+        
+        <View style={styles.container}>
+             <ScrollView contentContainerStyle={styles.contentContainer}>
+                        {post.image && <Image source={post.image} style={styles.image} />}
+                        <Text style={styles.date}>{formatDate(post.createdOn)}</Text>
+                        <Text style={styles.title}>{post.title}</Text>
+                        <Text style={styles.summary}>{post.summary}</Text>
+
+                        <RenderHTML
+                            contentWidth={width}
+                            source={{ html: post.content }}
+                            tagsStyles={{
+                                p: { fontSize: 14, marginBottom: -6, lineHeight: 18, marginLeft: 16, marginRight: 16 },
+                                strong: { fontWeight: 400,  },
+                                 h3: { fontSize: 16, fontWeight: '600', marginBottom: 8, marginLeft: 16, marginRight: 16  },
+
+                                em: { fontStyle: 'italic' },
+                                ul: { marginBottom: 4, marginTop: 16, },
+                                li: { marginBottom: 6 , }
+                            }}
+                        />
+                    </ScrollView>
             <BottomNav />
         </View>
     );
@@ -89,24 +113,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 22,
         paddingLeft: 16,
-       paddingRight: 16,
+        paddingRight: 16,
+        fontFamily: "Rye",
     }, date: {
         fontSize: 14,
         color: "#666",
         marginBottom: 12,
         paddingLeft: 16,
-       paddingRight: 16,
+        paddingRight: 16,
     }, summary: {
         fontSize: 16,
         fontStyle: "italic",
-        marginBottom: 22, 
+        fontWeight: 500,
+        marginBottom: 22,
         paddingLeft: 16,
-       paddingRight: 16,
-    }, body: {
-        fontSize: 16,
-        lineHeight: 24,
-        marginBottom: 24, 
-       paddingLeft: 16,
-       paddingRight: 16,
-    },
+        paddingRight: 16,
+    }, 
 });

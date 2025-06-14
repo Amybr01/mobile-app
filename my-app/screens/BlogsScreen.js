@@ -53,7 +53,8 @@ export default function BlogScreen({ navigation }) {
             title: fd.title || fd.name || "(no title)",
             summary: fd['blog-summary'] || fd['blogSummary'] || "",
             image: fd["main-image"] ? { uri: fd["main-image"].url } : undefined,
-            slug: item.slug,
+            slug: item.fieldData.slug,
+
             createdOn: item._createdOn,
           };
         });
@@ -125,6 +126,8 @@ export default function BlogScreen({ navigation }) {
               summary={post.summary}
               image={post.image}
               onPress={() => navigation.navigate("BlogDetail", { slug: post.slug })}
+
+
             />
           </View>
         ))}
