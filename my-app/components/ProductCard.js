@@ -32,7 +32,7 @@ const liked = isInWishlist(id);
             </View>
 
             <TouchableOpacity style={styles.button} onPress={onPress}>
-                <Text style={styles.buttonText}>Bekijk product</Text>
+                <Text style={styles.buttonText}>View product</Text>
             </TouchableOpacity>
         </View>
     );
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16,
         marginTop: 8,
+        fontFamily: "Rye",
     },
     description: {
         color: "#666",
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "#fff",
         fontWeight: "600",
+    
     },
     row: {
         flexDirection: "row",

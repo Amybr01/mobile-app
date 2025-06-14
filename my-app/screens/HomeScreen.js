@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     overflow: 'hidden',
+    
   },
   categoryImage: {
     width: 220,
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     overflow: 'hidden',
+    
   },
   blogImage: {
     width: 220,

@@ -69,11 +69,11 @@ export default function ProductsScreen({ navigation, route }) {
 
 
           let categorySlug = "unknown";
-          if (name.includes("bridle") || name.includes("bit") || name.includes("boots")) {
+          if (name.includes("bridle") || name.includes("bit") || name.includes("bucas") || name.includes("bell")) {
             categorySlug = "tack";
-          } else if (name.includes("hat") || name.includes("bronco") || name.includes("western boots")) {
+          } else if (name.includes("hat") || name.includes("bronco") || name.includes("jeans")  ||name.includes("riding") || name.includes("western")) {
             categorySlug = "outfits";
-          } else if (name.includes("cavalor")) {
+          } else if (name.includes("cavalor")|| name.includes("hoofpick") || name.includes("stone")) {
             categorySlug = "care";
             // zo moeten doen omdat door ecommerce ik de categorieen niet uit webflow kon halen door refernce
           }
@@ -228,13 +228,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
      borderWidth: 0.5, 
     borderColor: "#ccc",
+    
   },
   activeFilter: {
-    backgroundColor: "#674930",
+    backgroundColor: "#ce9b36",
   },
   filterText: {
     color: "#333",
-    fontSize: 16,
+    fontSize: 14,
+    fontFamily: "Rye",
   },
   activeText: {
     color: "#fff",

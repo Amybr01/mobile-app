@@ -32,12 +32,15 @@ export default function CartScreen({ navigation }) {
           <ScrollView>
             {cartItems.map((item, index) => (
               <View key={item.id ?? index} style={styles.item}>
-                <Image source={item.image} style={styles.image} />
+                <View style={styles.imageWrapper}>
+                  <Image source={item.image} style={styles.image} />
+                </View>
+
                 <View style={{ flex: 1 }}>
                   <Text style={styles.title}>{item.title}</Text>
-                  <Text>Quantity: {item.quantity}</Text>
-                  <Text>Price: €{item.price}</Text>
-                  <Text>Total: €{(item.price * item.quantity).toFixed(2)}</Text>
+                  <Text style={styles.itemText}>Quantity: {item.quantity}</Text>
+                  <Text style={styles.itemText}>Price: €{item.price}</Text>
+                  <Text style={styles.itemTotal}>Total: €{(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
                 <TouchableOpacity onPress={() => removeFromCart(item.id)}>
                   <Text style={styles.removeText}>✕</Text>
@@ -67,23 +70,55 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: "row",
-    marginBottom: 16,
-    gap: 12,
+    marginBottom: 8,
+    marginTop: 16,
+    gap: 16,
     alignItems: "center",
   },
+
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: "100%",
+    height: "100%",
+    resizeMode: 'contain',
+
   },
+  imageWrapper: {
+    backgroundColor: '#fff',
+    padding: 6,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    overflow: 'hidden',
+    width: 120,
+    height: 120,
+
+  },
+
   title: {
     fontWeight: "bold",
+    marginBottom: 16,
+    fontFamily: "Rye",
+  },
+  itemText: {
+    fontSize: 14,
+    color: '#333',
     marginBottom: 4,
+  },
+  itemTotal: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 16,
   },
   removeText: {
     fontSize: 22,
     color: "#674930",
-    marginLeft: 8,
+    marginRight: 8,
   },
   total: {
     fontSize: 18,

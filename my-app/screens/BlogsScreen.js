@@ -18,7 +18,7 @@ export default function BlogScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [dateSort, setDateSort] = useState("none"); // "none" | "asc" | "desc"
 
-  // native iOS sort-menu
+  // IOS sort menu (ander werkte niet op emulator)
   const openDateMenu = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {

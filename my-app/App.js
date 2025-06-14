@@ -23,17 +23,17 @@ const Stack = createStackNavigator();
 export default function App() {
   const [loaded] = useFonts({
     Rye: require("./assets/fonts/Rye-Regular.ttf"),
-    Playfair: require("./assets/fonts/PlayfairDisplay-SemiBold.ttf")
+    //Playfair: require("./assets/fonts/PlayfairDisplay-SemiBold.ttf")
   });
   if (!loaded) return null;
 
   
 
-  if (!Text.defaultProps) Text.defaultProps = {};
+  /*if (!Text.defaultProps) Text.defaultProps = {};
   Text.defaultProps.style = { fontFamily: 'Playfair', ...Text.defaultProps.style };
 
   if (!TextInput.defaultProps) TextInput.defaultProps = {};
-  TextInput.defaultProps.style = { fontFamily: 'Playfair', ...TextInput.defaultProps.style };
+  TextInput.defaultProps.style = { fontFamily: 'Playfair', ...TextInput.defaultProps.style };*/
   return (
     <WishlistProvider>
       <CartProvider>

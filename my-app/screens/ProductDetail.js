@@ -20,18 +20,18 @@ const DetailsScreen = ({ route }) => {
   const handleAddToCart = () => {
     console.log("In winkelmand:", { id, title, price, quantity });
     addToCart({
-    id: route.params.id,
-    title,
-    price,
-    quantity,
-    image,
-  });
-  console.log("In winkelmand:", {
-    id: route.params.id,
-    title,
-    price,
-    quantity,
-  });
+      id: route.params.id,
+      title,
+      price,
+      quantity,
+      image,
+    });
+    console.log("In winkelmand:", {
+      id: route.params.id,
+      title,
+      price,
+      quantity,
+    });
   };
 
 
@@ -42,7 +42,9 @@ const DetailsScreen = ({ route }) => {
         <Ionicons name={liked ? "heart" : "heart-outline"} size={36} color="#CE9B36" />
       </TouchableOpacity>
 
-      <Image source={image} style={styles.image} />
+      <View style={styles.imageWrapper}>
+        <Image source={image} style={styles.image} />
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{price}</Text>
 
@@ -81,8 +83,8 @@ const styles = StyleSheet.create({
   },
   heartIcon: {
     position: 'absolute',
-    top: 32,
-    right: 32,
+    top: 46,
+    right: 28,
     zIndex: 10,
   },
   image: {
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 22,
     textAlign: 'center',
+    fontFamily: "Rye",
   },
   price: {
     fontSize: 18,
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 6,
-    marginTop: 36,
+    marginTop: 12,
     gap: 16,
   },
   button: {
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
-    
+
   },
   totalPrice: {
     marginTop: 16,
@@ -147,4 +150,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+
+
+  imageWrapper: {
+  backgroundColor: '#fff', 
+  padding: 4,          
+  borderRadius: 16,             
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 22,    
+  marginTop: 12,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 4,
+  elevation: 3,  
+},
 });
