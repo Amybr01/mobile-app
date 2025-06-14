@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    
+
   
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#333',
     marginTop: 2,
+    
   },
   activeLabel: {
     color: '#CE9B36',

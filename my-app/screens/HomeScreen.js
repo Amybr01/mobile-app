@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
   logo: { width: '100%', height: 100, marginTop: 84 },
   sectionTitle: {
     fontSize: 20,
+    fontFamily: "Rye",
     fontWeight: 'bold',
     marginLeft: 18,
     marginTop: 24,
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
     marginLeft: 18,
     marginTop: 8,
     marginBottom: 16,
+    fontFamily: 'Playfair',
   },
 
 
