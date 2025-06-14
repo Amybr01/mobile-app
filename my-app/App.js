@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import { LogBox } from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 import ProductsScreen from './screens/ProductsScreen';
@@ -27,6 +28,10 @@ export default function App() {
   });
   if (!loaded) return null;
 
+
+LogBox.ignoreLogs([
+  'Support for defaultProps will be removed from',
+]);
   
 
   /*if (!Text.defaultProps) Text.defaultProps = {};
