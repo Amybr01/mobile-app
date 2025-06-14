@@ -54,7 +54,6 @@ export default function HomeScreen({ navigation }) {
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
             {categories.map((cat) => {
-              // bepaal key op basis van naam (je kunt dit uitbreiden of dynamisch maken als je wilt)
               let key = "all";
               const name = cat.fieldData.name?.toLowerCase() ?? "";
 
@@ -68,7 +67,7 @@ export default function HomeScreen({ navigation }) {
 
               return (
                 <TouchableOpacity
-                  key={cat._id}
+                  key={cat._id || cat.fieldData.slug || cat.fieldData.name}
                   style={styles.categoryCard}
                   onPress={() => navigation.navigate('Products', { initialCategory: key })}
                 >
@@ -86,11 +85,11 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
         )}
 
-       <TouchableOpacity
-              onPress={() => navigation.navigate('Products')}
-              onPressIn={() => setIsPressed(true)}
-              onPressOut={() => setIsPressed(false)}
-            >
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Products')}
+          onPressIn={() => setIsPressed(true)}
+          onPressOut={() => setIsPressed(false)}
+        >
           <Text style={[styles.linkText, isPressed && styles.linkTextHover]}>Browse all essentials</Text>
         </TouchableOpacity>
 
@@ -103,7 +102,7 @@ export default function HomeScreen({ navigation }) {
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
               {blogs.map((blog) => (
                 <TouchableOpacity
-                  key={blog._id}
+                  key={blog._id || blog.fieldData.slug || blog.fieldData.name}
                   style={styles.blogCard}
                   onPress={() => navigation.navigate('BlogDetail', blog.fieldData)}
                 >
@@ -228,8 +227,8 @@ const styles = StyleSheet.create({
   },
 
   linkTextHover: {
-  textDecorationLine: 'underline',
-},
+    textDecorationLine: 'underline',
+  },
 
 
 });
