@@ -126,7 +126,7 @@ export default function HomeScreen({ navigation }) {
               onPressOut={() => setIsPressed(false)}
             >
               <Text style={[styles.linkText, isPressed && styles.linkTextHover]}>
-                Discover more tips & tricks
+                Discover more 
               </Text>
             </TouchableOpacity>
           </>

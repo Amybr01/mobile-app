@@ -55,7 +55,8 @@ export default function BlogScreen({ navigation }) {
             image: fd["main-image"] ? { uri: fd["main-image"].url } : undefined,
             slug: item.fieldData.slug,
 
-            createdOn: item._createdOn,
+            createdOn: item.createdOn || item._createdOn
+
           };
         });
         setPosts(mapped);
