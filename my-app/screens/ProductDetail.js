@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useRef  } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions } from 'react-native';
 import BottomNav from '../components/BottomNav';
 import { Ionicons } from '@expo/vector-icons';
 import { useWishlist } from '../components/WishlistContext';
@@ -10,6 +10,10 @@ const DetailsScreen = ({ route }) => {
   const [quantity, setQuantity] = useState(1);
   const { toggleWishlistItem, isInWishlist } = useWishlist();
   const liked = isInWishlist(id);
+   const { width, height } = Dimensions.get('window');
+  const [showFly, setShowFly] = useState(false);
+  const flyAnimX = useRef(new Animated.Value(0)).current;
+  const flyAnimY = useRef(new Animated.Value(0)).current;
 
   const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => {
@@ -18,6 +22,34 @@ const DetailsScreen = ({ route }) => {
 
   const { addToCart } = useCart();
   const handleAddToCart = () => {
+        setShowFly(true);
+
+    flyAnimX.setValue(0);
+    flyAnimY.setValue(0);
+
+      Animated.sequence([
+  Animated.parallel([
+    Animated.timing(flyAnimX, {
+      toValue: 180, // naar rechts
+      duration: 400,
+      useNativeDriver: true,
+    }),
+    Animated.timing(flyAnimY, {
+      toValue: -100, // omhoog
+      duration: 400,
+      useNativeDriver: true,
+    }),
+  ]),
+  Animated.timing(flyAnimY, {
+    toValue: 0, // terug omlaag
+    duration: 400,
+    useNativeDriver: true,
+  })
+]).start(() => {
+  setShowFly(false);
+});
+
+
     console.log("In winkelmand:", { id, title, price, quantity });
     addToCart({
       id: route.params.id,
@@ -65,6 +97,23 @@ const DetailsScreen = ({ route }) => {
       <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
         <Text style={styles.cartButtonText}>Add to cart</Text>
       </TouchableOpacity>
+
+      {showFly && (
+        <Animated.Text
+          style={{
+            position: 'absolute',
+            bottom: 100, 
+            left: width / 2 - 30,
+            fontSize: 24,
+            transform: [
+              { translateX: flyAnimX },
+              { translateY: flyAnimY }
+            ]
+          }}
+        >
+          🤠
+        </Animated.Text>
+      )}
 
       <BottomNav />
     </View>
