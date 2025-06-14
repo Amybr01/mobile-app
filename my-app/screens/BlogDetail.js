@@ -1,4 +1,3 @@
-// screens/BlogDetail.js
 import React, { useEffect, useState } from "react";
 import RenderHTML from 'react-native-render-html';
 import {

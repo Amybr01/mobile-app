@@ -1,4 +1,3 @@
-// components/WishlistContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -7,7 +6,7 @@ const WishlistContext = createContext();
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
 
-  // ✅ Laad opgeslagen wishlist bij opstart
+  // laad vanaf het begin
   useEffect(() => {
     const loadWishlist = async () => {
       try {
@@ -16,19 +15,19 @@ export const WishlistProvider = ({ children }) => {
           setWishlist(JSON.parse(storedWishlist));
         }
       } catch (error) {
-        console.error("❌ Fout bij het laden van de wishlist:", error);
+        console.error("Fout bij het laden van de wishlist:", error);
       }
     };
     loadWishlist();
   }, []);
 
-  // ✅ Sla wishlist op bij elke wijziging
+  // Sla op bij elke wijziging
   useEffect(() => {
     const saveWishlist = async () => {
       try {
         await AsyncStorage.setItem("wishlist", JSON.stringify(wishlist));
       } catch (error) {
-        console.error("❌ Fout bij het opslaan van de wishlist:", error);
+        console.error("Fout bij het opslaan van de wishlist:", error);
       }
     };
     saveWishlist();

@@ -47,8 +47,8 @@ export default function HomeScreen({ navigation }) {
           resizeMode="contain"
         />
 
-        {/* Our Products */}
-        <Text style={styles.sectionTitle}>Our Products</Text>
+        {/* Products */}
+        <Text style={styles.sectionTitle}>Shop by category</Text>
         {loadingCategories ? (
           <ActivityIndicator size="large" color="#8B4513" style={{ marginTop: 16 }} />
         ) : (
@@ -93,8 +93,8 @@ export default function HomeScreen({ navigation }) {
           <Text style={[styles.linkText, isPressed && styles.linkTextHover]}>Browse all essentials</Text>
         </TouchableOpacity>
 
-        {/* Our Blog */}
-        <Text style={styles.sectionTitle}>Our Blog</Text>
+        {/* Blog */}
+        <Text style={styles.sectionTitle}>The cowboy’s guide</Text>
         {loadingBlogs ? (
           <ActivityIndicator size="large" color="#8B4513" style={{ marginTop: 16 }} />
         ) : (

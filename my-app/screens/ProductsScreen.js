@@ -15,11 +15,10 @@ export default function ProductsScreen({ navigation, route }) {
   const [filtered, setFiltered] = useState([]);
   const [activeCat, setActiveCat] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState("none"); // “none” | “asc” | “desc”
+  const [sortOrder, setSortOrder] = useState("none"); // “none” is default
   const openSortMenu = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        // nú 4 opties, dus index 0=tap Cancel, 1=none, 2=asc, 3=desc
         options: ["Cancel", "None", "Price ascending", "Price descending"],
         cancelButtonIndex: 0,
       },

@@ -1,4 +1,3 @@
-// screens/BlogScreen.js
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -16,7 +15,7 @@ export default function BlogScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [dateSort, setDateSort] = useState("none"); // "none" | "asc" | "desc"
+  const [dateSort, setDateSort] = useState("none");//none is default
 
   // IOS sort menu (ander werkte niet op emulator)
   const openDateMenu = () => {
@@ -33,7 +32,6 @@ export default function BlogScreen({ navigation }) {
     );
   };
 
-  // fetch posts én meteen filteredPosts vullen
   useEffect(() => {
     fetch("https://api.webflow.com/v2/collections/680a716d4e23d1771974cfd8/items", {
       headers: {
@@ -69,15 +67,14 @@ export default function BlogScreen({ navigation }) {
   useEffect(() => {
     let temp = [...posts];
 
-    // 1) search: match op volledige woorden in title
+    //search
     if (searchQuery.trim()) {
-      // escape regex special chars in query
       const esc = s => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
       const pattern = new RegExp(`\\b${esc(searchQuery.trim())}\\b`, 'i');
       temp = temp.filter(p => pattern.test(p.title));
     }
 
-    // 2) sort by date
+    //sort
     if (dateSort === "asc") {
       temp.sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
     } else if (dateSort === "desc") {
@@ -88,7 +85,7 @@ export default function BlogScreen({ navigation }) {
     setFilteredPosts(temp);
   }, [posts, searchQuery, dateSort]);
 
-  // Loading / empty state
+
   if (!posts.length) {
     return (
       <View style={styles.container}>

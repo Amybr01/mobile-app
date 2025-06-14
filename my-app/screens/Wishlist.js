@@ -1,4 +1,3 @@
-// screens/Wishlist.js
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { useWishlist } from "../components/WishlistContext";

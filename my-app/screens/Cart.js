@@ -1,4 +1,3 @@
-// screens/Cart.js
 import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { useCart } from "../components/CartContext";
